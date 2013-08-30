@@ -1,0 +1,3 @@
+NAME Wanda WINDOWAPI
+DESCRIPTION "Wanda, Copyright (c) 1998-2001 Thorsten Thielen <thth@gmx.net>"
+STACKSIZE 0x8000

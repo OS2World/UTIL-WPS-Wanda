@@ -1,0 +1,46 @@
+The following are ideas of my own and suggestions from others for
+improvement of Wanda:
+
+- Fix: Closing not from tasklist doesn't work
+- Fix: If note gets activated, check that cursor is activated in this note too
+- Fix: SysBar does not show title of last (opened?) note?
+- Fix: When activating the horizontal scrollbar, last word in note vanishes
+
+- "Arrange" option that automatically arranges notes on the screen in some way
+- Keep notes in (a subset?) of HTML
+- Allow "links" in notes, that show another note when selected
+- If notesfile does not exist, but backuped notesfile exists, make backup to
+  notesfile
+- "Rainbow-notes" (randomly change bg-color every time they get activated): 
+  will always again catch attention
+- Allow macros in notes (Date, time, etc.)
+- Allow to give notes no or only 1 pxl border with configurable color
+- Allow user-change of note title
+- "New note" entry in tasklist to make new note from there
+- Change bg-color of note when note gets focus
+- Every note gets "next" and "previous" button that "moves to" the next or
+  previous note in the list
+- When notelist active (or something) move all non-hidden notes in front of
+  other windows
+- Autosize for notes, so they automatically adjust their size to the longest
+  text/lines
+- Allow "remote control" of Wanda, either via named pipes or TCP/IP or both
+- A settings window/notebook so you don't have to use cmdline args
+- Do the printing using the system's printer objects
+- Allow to have notes automatically shown at certain events/certain time
+- Allow sorting of notes in the notelist window
+- Allow to shrink note windows so only the titlebar is shown
+- Have titlebar of note to be deleted flash
+- WPS integration so you e.g. have a note template with which you can
+  create new notes
+- Allow for notes to always float on top of other windows
+- Allow bitmap as note background
+- Allow to "stick" notes to other windows (WPS folders e.g.)
+- Drag a file over a note -> load file's contents into the note
+- Drag a file to the notelist window -> create a new note with file's cont.
+- Save notes as "outgoing mail" in appropriate dir for PostRoad mailer
+- Allow every note to have its own icon that is display in the notelist
+- For selected: change fg-color, change bg-color, change font
+- Delay opening windows until note gets activate/shown -> faster start of
+  program
+- Allow crypting notes (with Blowfish) and/or passwords

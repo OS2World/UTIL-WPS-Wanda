@@ -1,0 +1,231 @@
+/***
+ This file belongs to the Wanda distribution.
+ Copyright (C) 1998-2001 Thorsten Thielen <thth@gmx.net>
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ ***/
+
+#include "id.h"
+#include "version.h"
+#include "config.h"
+#include <os2.h>
+
+ICON IDM_WORKAROUND "src\\data\\wanda.ico"
+
+MENU IDM_WORKAROUND
+{
+    MENUITEM "Menu...",                WID_WORKAROUND
+}
+
+MENU IDM_POPUP
+{
+    SUBMENU  "~New note",                WID_NEWNOTEMENU,MS_CONDITIONALCASCADE
+    {
+        MENUITEM "~Blank\tF2",              WID_NEWNOTE
+        MENUITEM "From ~clipboard\tAlt+F2", WID_NEWNOTEFROMCLIPBOARD
+        MENUITEM "From ~file\tShift+F2",    WID_NEWNOTEFROMFILE
+    }
+    MENUITEM "Save ~all\tAlt+A",              WID_SAVEALL
+    MENUITEM SEPARATOR
+    MENUITEM "~Close note",            WID_CLOSENOTE
+    MENUITEM SEPARATOR
+    SUBMENU  "~Select",                WID_SELECT
+    {
+        MENUITEM "~All",               WID_SELECT_ALL
+        MENUITEM "~None",              WID_SELECT_NONE
+        MENUITEM SEPARATOR
+        MENUITEM "~Hidden",            WID_SELECT_HIDDEN
+        MENUITEM "~Shown",             WID_SELECT_SHOWN
+        MENUITEM SEPARATOR
+        MENUITEM "~Invert selection",  WID_SELECT_INVERT
+        
+    }
+    SUBMENU  "~For selected",          WID_FORSELECTED
+    {
+        MENUITEM "Sh~ow",                 WID_FS_SHOW
+        MENUITEM "Hi~de",                 WID_FS_HIDE
+        MENUITEM "~Close & delete",       WID_FS_CLOSE
+        MENUITEM SEPARATOR
+        SUBMENU "~Titlebar",              WID_FS_TITLEBAR,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_TITLEBARON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_TITLEBAROFF
+        }
+        SUBMENU "~Vertical scrollbar",    WID_FS_VSB,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_VSBON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_VSBOFF
+        }
+        SUBMENU "~Horizontal scrollbar",  WID_FS_HSB,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_HSBON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_HSBOFF
+        }
+        SUBMENU "Show in task~list",      WID_FS_TASKLIST,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "Yes",               WID_FS_TASKLISTON,,MIA_CHECKED
+            MENUITEM "No",                WID_FS_TASKLISTOFF
+        }
+        MENUITEM SEPARATOR
+        SUBMENU "~Wordwrap",              WID_FS_WORDWRAP,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_WORDWRAPON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_WORDWRAPOFF
+        }
+/*        SUBMENU "Auto~size",              WID_FS_AUTOSIZE,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_AUTOSIZEON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_AUTOSIZEOFF
+        }*/
+        SUBMENU "Autoh~ide",              WID_FS_AUTOHIDE,MS_CONDITIONALCASCADE
+        {
+            MENUITEM "On",                WID_FS_AUTOHIDEON,,MIA_CHECKED
+            MENUITEM "Off",               WID_FS_AUTOHIDEOFF
+        }
+        MENUITEM SEPARATOR
+        MENUITEM "~Find...",              WID_FS_FIND
+        MENUITEM "~Print...",             WID_FS_PRINT
+    }
+    MENUITEM SEPARATOR
+#ifdef DONLDREMOVETITLE
+    MENUITEM "Toggle ~titlebar",          WID_REMOVETITLE
+#endif
+    MENUITEM "Product ~information",      WID_ABOUT
+    MENUITEM SEPARATOR
+    MENUITEM "E~xit\tALT+X",              WID_EXIT
+}
+
+ACCELTABLE IDA_NOTELIST PRELOAD
+BEGIN
+   VK_F2,  WID_NEWNOTE, VIRTUALKEY
+   VK_F2,  WID_NEWNOTEFROMCLIPBOARD, VIRTUALKEY, ALT
+   VK_F2,  WID_NEWNOTEFROMFILE, VIRTUALKEY, SHIFT
+   "s",    WID_SAVEALL, CHAR, ALT
+   "x",    WID_EXIT, CHAR, ALT
+END
+
+MENU IDM_NOTEPOPUP
+{
+    MENUITEM "~Hide\tAlt+F11",                  WID_HIDENOTE
+    MENUITEM "~Close & delete\tAlt+F4",        WID_CLOSENOTE
+    MENUITEM SEPARATOR
+    MENUITEM "~Titlebar\tF5",              WID_TITLEBAR
+    MENUITEM "~Vertical scrollbar\tAlt+V",    WID_VERTICALSB
+    MENUITEM "H~orizontal scrollbar\tAlt+O",  WID_HORIZSB
+    MENUITEM "Show in task~list\tAlt+L",      WID_TASKLIST
+    MENUITEM SEPARATOR
+    MENUITEM "~Wordwrap\tF4",              WID_WORDWRAP
+//    MENUITEM "Auto~size",              WID_AUTOSIZE,,MIA_DISABLED
+    MENUITEM "A~utohide\tAlt+U",              WID_AUTOHIDE
+    MENUITEM SEPARATOR
+//    MENUITEM "~Find...",               WID_FS_FIND
+    SUBMENU "~Print",                  WID_PRINT,MS_CONDITIONALCASCADE
+    {
+        MENUITEM "~Quick",             WID_PRINT_QUICK,,MIA_CHECKED
+        MENUITEM "~Dialog...\tAlt+P",         WID_PRINT_DIALOG
+    }
+    MENUITEM SEPARATOR
+    MENUITEM "Save as ~default\tAlt+D",       WID_SAVEASDEFAULT
+    MENUITEM SEPARATOR
+    MENUITEM "Cut\tShift+Del ",       WID_CUT
+    MENUITEM "Copy\tCtrl+Ins",       WID_COPY
+    MENUITEM "Paste\tShift+Ins",       WID_PASTE
+    MENUITEM "~Undo",                 WID_FS_UNDO
+    MENUITEM SEPARATOR
+    SUBMENU  "~New note",                WID_NEWNOTEMENU,MS_CONDITIONALCASCADE
+    {
+        MENUITEM "~Blank\tF2",              WID_NEWNOTE
+        MENUITEM "From ~clipboard\tAlt+F2", WID_NEWNOTEFROMCLIPBOARD
+        MENUITEM "From ~file\tShift+F2",    WID_NEWNOTEFROMFILE
+    }
+    MENUITEM "Save ~all\tAlt+A",              WID_SAVEALL
+    MENUITEM "Product information",   WID_ABOUT
+    MENUITEM SEPARATOR
+    MENUITEM "E~xit\tALT+X",           WID_EXIT
+}
+
+ACCELTABLE IDA_NOTE PRELOAD
+BEGIN
+   VK_F11, WID_HIDENOTE, VIRTUALKEY, ALT
+   VK_F4,  WID_CLOSENOTE, VIRTUALKEY, ALT
+   VK_F5,  WID_TITLEBAR, VIRTUALKEY
+   "v",    WID_VERTICALSB, CHAR, ALT
+   "o",    WID_HORIZSB, CHAR, ALT
+   "l",    WID_TASKLIST, CHAR, ALT
+   VK_F4,  WID_WORDWRAP, VIRTUALKEY
+   "u",    WID_AUTOHIDE, CHAR, ALT   
+   "p",    WID_PRINT_DIALOG, CHAR, ALT
+   "d",    WID_SAVEASDEFAULT, CHAR, ALT
+   VK_F2,  WID_NEWNOTE, VIRTUALKEY
+   VK_F2,  WID_NEWNOTEFROMCLIPBOARD, VIRTUALKEY, ALT
+   VK_F2,  WID_NEWNOTEFROMFILE, VIRTUALKEY, SHIFT
+   "a",    WID_SAVEALL, CHAR, ALT
+   "x",    WID_EXIT, CHAR, ALT
+END
+
+DLGTEMPLATE ID_DLG_PRINT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Print/output note(s)", ID_DLG_PRINT, 86, 94, 260, 82, WS_VISIBLE, 
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Send output to ...", WID_NIL, 4, 36, 252, 42
+        AUTORADIOBUTTON "File", WID_RB_PRINTTOFILE, 10, 56, 50, 10, WS_TABSTOP
+        ENTRYFIELD      "", WID_E_PRINTFILENAME, 64, 58, 136, 8, ES_MARGIN
+        PUSHBUTTON      "Find...", WID_PB_FINDPRINTFILE, 206, 56, 44, 12
+        AUTORADIOBUTTON "Device", WID_RB_PRINTTODEVICE, 10, 42, 50, 10, WS_TABSTOP
+        CONTROL         "", WID_DDL_DEVICES, 62, 1, 188, 52, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        AUTOCHECKBOX    "Output headline before (each) note", WID_CB_PRINTHEADLINE, 6, 22, 
+                        250, 10
+        DEFPUSHBUTTON   "Output", WID_PB_OUTPUT, 4, 4, 50, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 60, 4, 50, 14
+    END
+END
+
+DLGTEMPLATE ID_DLG_FIND LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Find", ID_DLG_FIND, 64, 62, 300, 102, WS_VISIBLE, FCF_SYSMENU | 
+            FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Search for ...", WID_NIL, 4, 74, 292, 24
+        ENTRYFIELD      "", WID_E_FINDTEXT, 12, 80, 276, 8, ES_MARGIN
+        GROUPBOX        "Options", WID_NIL, 4, 22, 292, 48
+        AUTOCHECKBOX    "Replace with ...", WID_CB_FINDREPLACE, 10, 50, 280, 10
+        ENTRYFIELD      "", WID_E_FINDREPLACETEXT, 24, 40, 264, 8, ES_MARGIN
+        AUTOCHECKBOX    "Search is case sensitive", WID_CB_FINDCASESENS, 10, 26, 280, 10
+        DEFPUSHBUTTON   "Do first", WID_PB_DOFIRST, 4, 4, 60, 14
+        PUSHBUTTON      "Do next", WID_PB_DONEXT, 68, 4, 60, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 138, 4, 60, 14
+    END
+END
+
+DLGTEMPLATE ID_DLG_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "About ""Wanda""", ID_DLG_ABOUT, 90, 56, 300, 71,
+    	    WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        ICON            IDM_WORKAROUND, WID_NIL, 8, 49, 21, 16, WS_GROUP
+        LTEXT           PSZ_NAMEVERSION, WID_NIL, 42, 56, 252, 9
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00C80A0AL
+        LTEXT           "Sticky notes application", WID_NIL, 42, 44, 252, 8
+        LTEXT           "Copyright (c) 1998-2001 Thorsten Thielen", WID_NIL, 42, 35, 
+                        202, 8
+        LTEXT           "e-Mail: thth@gmx.net", WID_NIL, 42, 23, 252, 8
+        LTEXT           "WWW: http://www.teamos2.ipcon.de/~thielen/programs"
+                        "/wanda", WID_NIL, 42, 4, 252, 17, DT_WORDBREAK
+        DEFPUSHBUTTON   "Ok", WID_NIL, 8, 6, 22, 26
+    END
+END
