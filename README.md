@@ -17,4 +17,4 @@ AUTHORS
 
 LINKS
 ===============
-* 
+* http://www.c2226.de/programs/wanda/index.phtml
